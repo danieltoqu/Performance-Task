@@ -1,0 +1,12 @@
+{
+    "Name": "performance-task-rule",
+    "ScheduleExpression": "cron(0 * * * ? *)",
+    "State": "ENABLED",
+    "Targets": [
+      {
+        "Arn": "lambda-function-arn",
+        "Id": "target-id"
+      }
+    ]
+  }
+  

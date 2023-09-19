@@ -1,0 +1,12 @@
+FROM amazonlinux:2
+
+RUN yum install -y python3-pip
+
+COPY lambda_function.py /var/task/
+COPY requirements.txt /var/task/
+
+RUN pip3 install -r /var/task/requirements.txt -t /var/task/
+
+WORKDIR /var/task
+
+CMD [ "lambda_function.lambda_handler" ]

@@ -1,0 +1,27 @@
+service: my-data-pipeline
+
+provider:
+  name: aws
+  runtime: python3.8
+  stage: dev
+  region: us-east-1
+
+functions:
+  myFunction:
+    handler: lambda_function.lambda_handler
+    events:
+      - schedule: cron(0 * * * ? *)
+
+resources:
+  Resources:
+    NewEventBridgeRule:
+      Type: AWS::Events::Rule
+      Properties:
+        ScheduleExpression: cron(0 * * * ? *)
+        State: ENABLED
+        Targets:
+          - Arn:
+              Fn::GetAtt:
+                - "MyFunctionLambdaFunction"
+                - "Arn"
+            Id: myTargetId
